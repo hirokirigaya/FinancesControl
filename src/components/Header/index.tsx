@@ -1,12 +1,16 @@
 import { Logo } from '../../assets/Logo'
 import { Container, Content } from './styles'
 
-export function Header() {
+interface openPropsModal {
+  onOpenNewTransactionModal: () => void;
+}
+
+export function Header({onOpenNewTransactionModal}: openPropsModal) {
   return (
     <Container>
       <Content>
         <Logo />
-        <button type='button'>Nova transação</button>
+        <button type='button' onClick={onOpenNewTransactionModal}>Nova transação</button>
       </Content>
     </Container>
   )
