@@ -5,7 +5,7 @@ import styled from 'styled-components'
 const ArrowStyle = styled.span`
   svg {
     color: var(--red);
-    font-size: 26px;
+    font-size: 1.5rem;
   }
 `
 

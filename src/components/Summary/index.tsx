@@ -1,9 +1,15 @@
+import { useContext } from "react";
 import { ArrowDown } from "../../assets/ArrowDown";
 import { ArrowUp } from "../../assets/ArrowUp";
 import Money from "../../assets/Money";
+import { TransactionsContext } from "../../TransactionsContext";
 import { Container } from "./styles";
 
 export function Summary() {
+  
+  const transactions = useContext(TransactionsContext)
+  console.log(transactions)
+
   return (
     <Container>
       <div>
