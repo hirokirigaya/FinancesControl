@@ -12,7 +12,7 @@ const LogoMoney = styled.p`
     
      svg {
        font-size: 46px;
-       color: #33CC95;
+       color: #fff;
      }
     }
 `
@@ -21,7 +21,7 @@ const LogoMoney = styled.p`
 export function Logo() {
   return (
     <LogoMoney>
-      <span><Money/> dt money</span>
+      <span><Money/>FinancesControl</span>
     </LogoMoney>
   )
 }

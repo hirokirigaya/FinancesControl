@@ -3,7 +3,8 @@ import Modal from 'react-modal'
 import { ArrowDown } from '../../assets/ArrowDown'
 import { ArrowUp } from '../../assets/ArrowUp'
 import { Close } from '../../assets/Close'
-import { api } from '../../services/api'
+import { useTransaction } from '../../hooks/useTransactions'
+import { server } from '../../main'
 import { Container, TransactionTypeContainer, RadioBox } from './styles'
 
 interface NewTransactionModalProps {
@@ -15,22 +16,41 @@ export function NewTransactionModal({isOpen, onRequestClose}: NewTransactionModa
   
   const [title, setTitle] = useState('')
   const [category, setCategory] = useState('')
-  const [value, setValue] = useState(0)
+  const [amount, setAmount] = useState(0)
   const [type, setType] = useState('deposit')
 
-  function handleCreateNewTransaction(event: FormEvent) {
+  const {createTransaction} = useTransaction()
+
+  async function handleCreateNewTransaction(event: FormEvent) {
     event.preventDefault()
-    const data = {
-      title,
-      value,
-      type,
-      category
-  }
-
-  api.post('/transactions', data)
   
-  }
+    
+    await createTransaction({
+      title,
+      amount,
+      category,
+      type
+    })
 
+    server.db.transactions.insert({
+      title: title,
+      amount: amount,
+      category: category,
+      type: type,
+      createdAt: new Date()
+    })
+      
+      setTitle('');
+      setCategory('');
+      setType('deposit');
+      setAmount(0);
+      
+      onRequestClose()
+
+    }
+
+    console.log(server.db.transactions)
+    
 
   return (
     <Modal
@@ -41,19 +61,19 @@ export function NewTransactionModal({isOpen, onRequestClose}: NewTransactionModa
     >
       <Close onRequestClose={onRequestClose} />
       <Container onSubmit={handleCreateNewTransaction}>
-        <h2>Cadastrar Transação</h2>
+        <h2>Register Transaction</h2>
         <input 
           type="text"
-          placeholder="Titulo" 
+          placeholder="Title" 
           value={title}
           onChange={e => setTitle(e.target.value)}
          
         />
         <input
          type="number"
-         placeholder="Valor" 
-         value={value}
-         onChange={e => setValue(Number(e.target.value))}
+         placeholder="Value" 
+         value={amount}
+         onChange={e => setAmount(Number(e.target.value))}
         />
 
         <TransactionTypeContainer>
@@ -65,7 +85,7 @@ export function NewTransactionModal({isOpen, onRequestClose}: NewTransactionModa
            >
             <p>
               <ArrowUp />
-              Entrada
+              Deposit
             </p>
           </RadioBox>
           <RadioBox 
@@ -76,17 +96,17 @@ export function NewTransactionModal({isOpen, onRequestClose}: NewTransactionModa
           >
             <p>
               <ArrowDown />
-              Saida
+              Withdraw
             </p>
           </RadioBox>
         </TransactionTypeContainer>
         <input 
         type="text" 
-        placeholder="Categoria"
+        placeholder="Category"
         value={category}
         onChange={e => setCategory(e.target.value)}
         />
-        <button type="submit">Cadastrar</button>
+        <button type="submit">Register</button>
       </Container>
     </Modal>
   )

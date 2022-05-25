@@ -10,7 +10,7 @@ export function Header({onOpenNewTransactionModal}: openPropsModal) {
     <Container>
       <Content>
         <Logo />
-        <button type='button' onClick={onOpenNewTransactionModal}>Nova transação</button>
+        <button type='button' onClick={onOpenNewTransactionModal}>New Transaction</button>
       </Content>
     </Container>
   )

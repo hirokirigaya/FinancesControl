@@ -3,8 +3,7 @@ import ReactDOM from 'react-dom/client'
 import { App } from './App'
 import { createServer, Model } from 'miragejs'
 
-
-createServer({
+export let server = createServer({
   models:{
     transaction: Model,
   },
@@ -32,6 +31,7 @@ createServer({
     })
   },
 
+
   routes() {
     this.namespace = 'api';
     this.get('/transactions', () => {
@@ -45,6 +45,7 @@ createServer({
     })
   }
 })
+
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
