@@ -21,7 +21,7 @@ const LogoMoney = styled.p`
 export function Logo() {
   return (
     <LogoMoney>
-      <span><Money/>FinancesControl</span>
+      <span><Money/>FinancialControl</span>
     </LogoMoney>
   )
 }
