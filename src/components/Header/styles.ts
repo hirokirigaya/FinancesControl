@@ -9,6 +9,7 @@ export const Content = styled.div`
   margin: 0 auto;
 
   display: flex;
+  flex-wrap: wrap;
   padding: 2rem 1rem 12rem;
   justify-content: space-between;
   align-items: center;
@@ -26,6 +27,11 @@ export const Content = styled.div`
     &:hover {
       filter: brightness(0.9);
     }
+  }
+
+  @media(max-width: 420px) {
+  justify-content: center;
+  gap: 2rem;
   }
 
 `

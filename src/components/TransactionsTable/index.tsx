@@ -18,7 +18,12 @@ export function TransactionsTable() {
           </tr>
         </thead>
         <tbody>
-          {transactions.map((transaction, i) => (
+      {transactions.length === 0 ?
+      <tr className='itemsoff'>
+        <td className='td'>Dont have itens</td> 
+      </tr>
+           :
+          transactions.map((transaction, i) => (
             <tr key={i}>
               <td>{transaction.title}</td>
               <td className={transaction.type}>
@@ -36,7 +41,7 @@ export function TransactionsTable() {
               </td>
             </tr>
           ))}
-        </tbody>
+        </tbody> 
       </table>
     </Container>
   )

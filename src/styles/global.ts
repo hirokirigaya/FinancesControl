@@ -1,3 +1,4 @@
+import { darken } from "polished";
 import { createGlobalStyle } from "styled-components";
 
 
@@ -77,4 +78,27 @@ export const GlobalStyle = createGlobalStyle`
     background-color: var(--background);
   }
 
+/* width */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--green);
+  transition: 200ms ease-in-out;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background:  #44DD95;
+}
+
 `
+

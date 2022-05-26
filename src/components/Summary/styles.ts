@@ -30,5 +30,15 @@ export const Container = styled.div`
       background-color: var(--green);
       color: var(--shape);
     }
+
+  }
+  @media(max-width:800px) {
+    padding: 10px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(3, 1fr);
+    grid-gap: 2rem;
+    margin-top: -8rem;
+
   }
 `
