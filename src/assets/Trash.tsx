@@ -1,11 +1,12 @@
 import {BsTrash} from 'react-icons/bs'
 import styled from 'styled-components'
 import { useTransaction } from '../hooks/useTransactions'
-import { server } from '../main'
 
 
-const Container = styled.span`
+const Container = styled.button`
  cursor: pointer;
+ border: none;
+ background-color: transparent;
  
  svg {
    color: var(--text-body);
@@ -18,15 +19,22 @@ const Container = styled.span`
  }
 `
 
-export function Trash() {
-  const {transactions} = useTransaction()
+interface TrashProps {
+  transaction: TransactionData
+}
 
-  function deleteTransaction() {
-    console.log(transactions)
-  }
+interface TransactionData {
+    id: number
+    title: string
+    category: string
+    amount: number
+    type: string
+}
+export function Trash({transaction}: TrashProps) {
+  const {deleteTransaction} = useTransaction()
 
   return (
-    <Container onClick={deleteTransaction}><BsTrash/></Container>
+    <Container onClick={() => deleteTransaction(transaction.id)}><BsTrash/></Container>
   )
 }
 

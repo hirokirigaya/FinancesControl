@@ -4,7 +4,7 @@ import styled from 'styled-components'
 const MoneyStyle = styled.span`
   svg {
     color: var(--shape);
-    font-size: 30px;
+    font-size: 1.5rem;
   }
 `
 

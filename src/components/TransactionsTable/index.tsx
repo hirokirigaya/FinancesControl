@@ -1,4 +1,3 @@
-import { useContext } from 'react'
 import { Trash } from '../../assets/Trash'
 import { useTransaction } from '../../hooks/useTransactions'
 import { Container } from './styles'
@@ -6,7 +5,7 @@ import { Container } from './styles'
 
 export function TransactionsTable() {
   const { transactions } = useTransaction()
-
+  
   return (
     <Container>
       <table>
@@ -19,8 +18,8 @@ export function TransactionsTable() {
           </tr>
         </thead>
         <tbody>
-          {transactions.map((transaction) => (
-            <tr key={transaction.id}>
+          {transactions.map((transaction, i) => (
+            <tr key={i}>
               <td>{transaction.title}</td>
               <td className={transaction.type}>
                 {new Intl.NumberFormat('pt-BR', {
@@ -33,7 +32,7 @@ export function TransactionsTable() {
               {new Intl.DateTimeFormat('pt-BR').format(new Date(transaction.createdAt))}
               </td>
               <td>
-              <Trash/>
+              <Trash transaction={transaction}/>
               </td>
             </tr>
           ))}

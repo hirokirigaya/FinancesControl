@@ -4,7 +4,6 @@ import { ArrowDown } from '../../assets/ArrowDown'
 import { ArrowUp } from '../../assets/ArrowUp'
 import { Close } from '../../assets/Close'
 import { useTransaction } from '../../hooks/useTransactions'
-import { server } from '../../main'
 import { Container, TransactionTypeContainer, RadioBox } from './styles'
 
 interface NewTransactionModalProps {
@@ -12,45 +11,35 @@ interface NewTransactionModalProps {
   onRequestClose: () => void
 }
 
-export function NewTransactionModal({isOpen, onRequestClose}: NewTransactionModalProps) {
-  
+export function NewTransactionModal({
+  isOpen,
+  onRequestClose,
+}: NewTransactionModalProps) {
   const [title, setTitle] = useState('')
   const [category, setCategory] = useState('')
   const [amount, setAmount] = useState(0)
   const [type, setType] = useState('deposit')
 
-  const {createTransaction} = useTransaction()
+  const { createTransaction } = useTransaction()
 
   async function handleCreateNewTransaction(event: FormEvent) {
     event.preventDefault()
-  
-    
     await createTransaction({
+      id: Math.floor(Math.random() * 9999 + 1),
       title,
       amount,
       category,
-      type
+      type,
     })
 
-    server.db.transactions.insert({
-      title: title,
-      amount: amount,
-      category: category,
-      type: type,
-      createdAt: new Date()
-    })
-      
-      setTitle('');
-      setCategory('');
-      setType('deposit');
-      setAmount(0);
-      
-      onRequestClose()
+ 
+    setTitle('')
+    setCategory('')
+    setType('deposit')
+    setAmount(0)
 
-    }
-
-    console.log(server.db.transactions)
-    
+    onRequestClose()
+  }
 
   return (
     <Modal
@@ -62,37 +51,36 @@ export function NewTransactionModal({isOpen, onRequestClose}: NewTransactionModa
       <Close onRequestClose={onRequestClose} />
       <Container onSubmit={handleCreateNewTransaction}>
         <h2>Register Transaction</h2>
-        <input 
+        <input
           type="text"
-          placeholder="Title" 
+          placeholder="Title"
           value={title}
-          onChange={e => setTitle(e.target.value)}
-         
+          onChange={(e) => setTitle(e.target.value)}
         />
         <input
-         type="number"
-         placeholder="Value" 
-         value={amount}
-         onChange={e => setAmount(Number(e.target.value))}
+          type="number"
+          placeholder="Value"
+          value={amount}
+          onChange={(e) => setAmount(Number(e.target.value))}
         />
 
         <TransactionTypeContainer>
           <RadioBox
-           type="button"
-           onClick={() => setType('deposit')}
-           isActive={type === 'deposit'}
-           activeColor={'green'}
-           >
+            type="button"
+            onClick={() => setType('deposit')}
+            isActive={type === 'deposit'}
+            activeColor={'green'}
+          >
             <p>
               <ArrowUp />
               Deposit
             </p>
           </RadioBox>
-          <RadioBox 
-          type="button"
-          onClick={() => setType('withdraw')}
-          isActive={type === 'withdraw'}
-          activeColor={'red'}
+          <RadioBox
+            type="button"
+            onClick={() => setType('withdraw')}
+            isActive={type === 'withdraw'}
+            activeColor={'red'}
           >
             <p>
               <ArrowDown />
@@ -100,11 +88,11 @@ export function NewTransactionModal({isOpen, onRequestClose}: NewTransactionModa
             </p>
           </RadioBox>
         </TransactionTypeContainer>
-        <input 
-        type="text" 
-        placeholder="Category"
-        value={category}
-        onChange={e => setCategory(e.target.value)}
+        <input
+          type="text"
+          placeholder="Category"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
         />
         <button type="submit">Register</button>
       </Container>
