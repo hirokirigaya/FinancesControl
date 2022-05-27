@@ -5,6 +5,7 @@ export const Container = styled.div`
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 2rem;
   margin-top: -8rem;
+  padding: 10px;
 
   div {
     background-color: var(--shape);
@@ -33,7 +34,6 @@ export const Container = styled.div`
 
   }
   @media(max-width:800px) {
-    padding: 10px;
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: repeat(3, 1fr);
